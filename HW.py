@@ -16,16 +16,23 @@
 
 class collection:
     def add_item(self, cart, item):          # will use a_list as self
-        self.item_to_add = cart.append(item)
+       cart.append(item)
 
+    def costs(self, cart, item):
+        self.cost = f'${len(item) * .50} '
+        self.total = f'${len("".join(cart)) * .50} '
 
-    def remove_item(self, cart, item):    # will use a_list as self
-        self.item_to_remove = cart.remove(item)
+    def savings(self, cart, item):
+        self.cost = f'${len(item) * .50} '
+        self.total = f'${len("".join(cart)) * .50} '
 
-    def clear_items(self, cart):                    # will use a_list as self
-        self.clear = cart.clear()
+    def remove_item(self, cart, item):       # will use a_list as self
+        cart.remove(item)
 
-    def show_items(self):                     # will use a_list as self
+    def clear_items(self, cart):             # will use a_list as self
+        cart.clear()
+
+    def show_items(self):                    # will use a_list as self
         print('='*60)
         if self:
             for idx, val in enumerate(set(self)):
@@ -36,7 +43,8 @@ class collection:
 
 
     def show_instructions():
-        print("""Type 'add' to add an item to the list.
+        print("""
+    Type 'add' to add an item to the list.
     Type 'remove' to remove an item from the list.
     Type 'clear' to remove all items from your cart.
     Type 'quit' to exit program.""")
@@ -58,9 +66,15 @@ class collection:
             elif decision == 'add':
                 item = input('What item would you like to add? ')
                 collection.add_item(self, cart, item)
+                collection.costs(self, cart, item)
+                print(f'You just spent {self.cost} !')
+                print(f'Your total is {self.total} !')
             elif decision == 'remove':
                 item = input('What item would you like to remove? ')
                 collection.remove_item(self, cart, item)
+                collection.savings(self, cart, item)
+                print(f'You just saved {self.cost} !')
+                print(f'Your total is {self.total} !')
             elif decision == 'clear':
                 confirmed = False
                 while not confirmed:
